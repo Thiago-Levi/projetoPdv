@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "name": "projetopdv",
+  "description": "![](https://i.imgur.com/xG74tOh.png) - # Desafio Módulo 5 - Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thiago-Levi/projetoPdv.git"
+  },
+  "author": "Thiago Levi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Thiago-Levi/projetoPdv/issues"
+  },
+  "homepage": "https://github.com/Thiago-Levi/projetoPdv#readme"
+}
