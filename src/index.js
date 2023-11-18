@@ -5,4 +5,4 @@ const routes = require("./rotas/rotas");
 const port = process.env.SERVER_PORT;
 app.use(express.json());
 app.use(routes);
-app.listen(3000, console.log(`Servidor rodando na porta ${port}`));
+app.listen(port, console.log(`Servidor rodando na porta ${port}`));
