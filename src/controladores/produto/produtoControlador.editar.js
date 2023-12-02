@@ -3,6 +3,7 @@ const knex = require("../../bancodedados/conexao");
 const editarProduto = async (req, res) => {
   const { descricao, quantidade_estoque, valor, categoria_id } = req.body;
   const { id } = req.params;
+
   try {
     const existe_id = await knex("produtos").where("id", "=", id).first("id");
 

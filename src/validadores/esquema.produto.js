@@ -38,19 +38,22 @@ const editar = Joi.object({
   quantidade_estoque: Joi.number().strict().positive().messages({
     "number.base": "O campo quantidade_estoque deve ser um número",
     "number.positive": "O campo quantidade_estoque deve ser um número positivo",
-    "number.base": "O campo quantidade_estoque deve ser numérico",
   }),
 
   valor: Joi.number().strict().positive().messages({
     "number.base": "O campo valor deve ser um número",
     "number.positive": "O campo valor deve ser um número positivo",
-    "number.base": "O campo valor deve ser numérico",
   }),
 
   categoria_id: Joi.number().strict().positive().messages({
     "number.base": "O campo categoria_id deve ser um número",
     "number.positive": "O campo categoria_id deve ser um número positivo",
-    "number.base": "O campo categoria_id deve ser numérico",
+  }),
+
+  id: Joi.number().positive().messages({
+    "number.base": "É necessário informar um número válido após 'produto/'",
+    "number.positive": "É necessário informar um número válido após 'produto/'",
+    "number.base": "É necessário informar um número válido após 'produto/'",
   }),
 });
 

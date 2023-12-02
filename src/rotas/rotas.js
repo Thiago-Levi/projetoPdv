@@ -10,6 +10,9 @@ const cadastrarUsuario = require("../controladores/usuario/usuarioControlador.ca
 const logarUsuario = require("../controladores/usuario/usuarioControlador.login");
 const cadastrarProduto = require("../controladores/produto/produtoControlador.cadastrar");
 const editarProduto = require("../controladores/produto/produtoControlador.editar");
+const listarProdutos = require("../controladores/produto/produtoControlador.listar");
+const detalharProduto = require("../controladores/produto/produtoControlador.detalhar");
+
 ///// Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
 const validarUsuarioLogar = require("../intermediarios/usuario/usuarioIntermediario.logar");
@@ -35,10 +38,12 @@ routes.post(
   validarProdutoCadatrar(esquemaProduto.cadastrar),
   cadastrarProduto
 );
-
 routes.put(
   "/produto/:id",
   validarProdutoEditar(esquemaProduto.editar),
   editarProduto
 );
+
+routes.get("/produto", listarProdutos);
+routes.get("/produto/:id", detalharProduto);
 module.exports = routes;
