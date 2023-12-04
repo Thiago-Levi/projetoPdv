@@ -12,6 +12,7 @@ const cadastrarProduto = require("../controladores/produto/produtoControlador.ca
 const editarProduto = require("../controladores/produto/produtoControlador.editar");
 const listarProdutos = require("../controladores/produto/produtoControlador.listar");
 const detalharProduto = require("../controladores/produto/produtoControlador.detalhar");
+const deletarProduto = require("../controladores/produto/produtoControlador.deletar");
 
 ///// Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
@@ -46,4 +47,5 @@ routes.put(
 
 routes.get("/produto", listarProdutos);
 routes.get("/produto/:id", detalharProduto);
+routes.delete("/produto/:id", deletarProduto);
 module.exports = routes;
