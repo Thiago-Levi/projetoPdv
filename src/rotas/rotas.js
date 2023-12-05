@@ -3,7 +3,7 @@ const routes = express();
 /////esquemas de validações de entidades////
 const esquemaUsuario = require("../validadores/esquema.usuario");
 const esquemaProduto = require("../validadores/esquema.produto");
-
+const esquemaCliente = require("../validadores/esquema.cliente");
 ////Controladores ////
 const listarCategorias = require("../controladores/categoria/categoriaControlador.listar");
 const cadastrarUsuario = require("../controladores/usuario/usuarioControlador.cadastrar");
@@ -13,6 +13,7 @@ const editarProduto = require("../controladores/produto/produtoControlador.edita
 const listarProdutos = require("../controladores/produto/produtoControlador.listar");
 const detalharProduto = require("../controladores/produto/produtoControlador.detalhar");
 const deletarProduto = require("../controladores/produto/produtoControlador.deletar");
+const cadastrarCliente = require("../controladores/cliente/clienteControlador.cadastrar");
 
 ///// Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
@@ -20,7 +21,7 @@ const validarUsuarioLogar = require("../intermediarios/usuario/usuarioIntermedia
 const validarAutenticacao = require("../intermediarios/autenticacao/autenticacaoValidar");
 const validarProdutoCadatrar = require("../intermediarios/produto/produtoIntermediario.cadastrar");
 const validarProdutoEditar = require("../intermediarios/produto/produtoIntermediario.editar");
-
+const validarClienteCadastrar = require("../intermediarios/cliente/clienteIntermediario.cadastrar");
 ///// Rotas /////
 routes.get("/categoria", listarCategorias);
 
@@ -48,4 +49,11 @@ routes.put(
 routes.get("/produto", listarProdutos);
 routes.get("/produto/:id", detalharProduto);
 routes.delete("/produto/:id", deletarProduto);
+
+routes.post(
+  "/cliente",
+  validarClienteCadastrar(esquemaCliente.cadastrar),
+  cadastrarCliente
+);
+
 module.exports = routes;
