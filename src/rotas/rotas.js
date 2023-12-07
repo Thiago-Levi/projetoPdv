@@ -16,6 +16,7 @@ const detalharProduto = require("../controladores/produto/produtoControlador.det
 const deletarProduto = require("../controladores/produto/produtoControlador.deletar");
 const cadastrarCliente = require("../controladores/cliente/clienteControlador.cadastrar");
 const listarClientes = require("../controladores/cliente/clienteControlador.listar");
+const detalharCliente = require("../controladores/cliente/clienteControlador.detalhar");
 
 ///// Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
@@ -60,5 +61,5 @@ routes.post(
 );
 
 routes.get("/cliente", listarClientes);
-
+routes.get("/cliente/:id", detalharCliente);
 module.exports = routes;
