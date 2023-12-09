@@ -17,6 +17,7 @@ const deletarProduto = require("../controladores/produto/produtoControlador.dele
 const cadastrarCliente = require("../controladores/cliente/clienteControlador.cadastrar");
 const listarClientes = require("../controladores/cliente/clienteControlador.listar");
 const detalharCliente = require("../controladores/cliente/clienteControlador.detalhar");
+const editarCliente = require("../controladores/cliente/clienteControlador.editar");
 
 ///// Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
@@ -25,6 +26,7 @@ const validarAutenticacao = require("../intermediarios/autenticacao/autenticacao
 const validarProdutoCadatrar = require("../intermediarios/produto/produtoIntermediario.cadastrar");
 const validarProdutoEditar = require("../intermediarios/produto/produtoIntermediario.editar");
 const validarClienteCadastrar = require("../intermediarios/cliente/clienteIntermediario.cadastrar");
+const validarClienteEditar = require("../intermediarios/cliente/clienteIntermediario.editar");
 
 ///// Rotas /////
 routes.get("/categoria", listarCategorias);
@@ -62,4 +64,9 @@ routes.post(
 
 routes.get("/cliente", listarClientes);
 routes.get("/cliente/:id", detalharCliente);
+routes.put(
+  "/cliente/:id",
+  validarClienteEditar(esquemaCliente.editar),
+  editarCliente
+);
 module.exports = routes;
