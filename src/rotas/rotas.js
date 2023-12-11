@@ -1,11 +1,12 @@
 const express = require("express");
 const routes = express();
-/////esquemas de validações de entidades////
+/////Impotações de esquemas de validações de entidades////
 const esquemaUsuario = require("../validadores/esquema.usuario");
 const esquemaProduto = require("../validadores/esquema.produto");
 const esquemaCliente = require("../validadores/esquema.cliente");
+const esquemaPedido = require("../validadores/esquema.pedido");
 
-////Controladores ////
+////Impotações de Controladores ////
 const listarCategorias = require("../controladores/categoria/categoriaControlador.listar");
 const cadastrarUsuario = require("../controladores/usuario/usuarioControlador.cadastrar");
 const logarUsuario = require("../controladores/usuario/usuarioControlador.login");
@@ -18,8 +19,9 @@ const cadastrarCliente = require("../controladores/cliente/clienteControlador.ca
 const listarClientes = require("../controladores/cliente/clienteControlador.listar");
 const detalharCliente = require("../controladores/cliente/clienteControlador.detalhar");
 const editarCliente = require("../controladores/cliente/clienteControlador.editar");
+const cadastrarPedido = require("../controladores/pedido/pedidoControlador.cadastrar");
 
-///// Intermediários ////
+///// Impotações de Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
 const validarUsuarioLogar = require("../intermediarios/usuario/usuarioIntermediario.logar");
 const validarAutenticacao = require("../intermediarios/autenticacao/autenticacaoValidar");
@@ -27,7 +29,7 @@ const validarProdutoCadatrar = require("../intermediarios/produto/produtoInterme
 const validarProdutoEditar = require("../intermediarios/produto/produtoIntermediario.editar");
 const validarClienteCadastrar = require("../intermediarios/cliente/clienteIntermediario.cadastrar");
 const validarClienteEditar = require("../intermediarios/cliente/clienteIntermediario.editar");
-
+const validarPedidoCadastrar = require("../intermediarios/pedido/pedidoIntermediario.cadastrar");
 ///// Rotas /////
 routes.get("/categoria", listarCategorias);
 
@@ -69,4 +71,11 @@ routes.put(
   validarClienteEditar(esquemaCliente.editar),
   editarCliente
 );
+
+routes.post(
+  "/pedido",
+  validarPedidoCadastrar(esquemaPedido.cadastrar),
+  cadastrarPedido
+);
+
 module.exports = routes;

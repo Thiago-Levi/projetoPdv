@@ -65,3 +65,6 @@ values
 ('Moda'),
 ('Bebê'),
 ('Games');
+
+alter table produtos 
+add column produto_imagem text;
