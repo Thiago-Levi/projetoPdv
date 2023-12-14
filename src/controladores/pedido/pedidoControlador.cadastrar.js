@@ -27,8 +27,70 @@ const cadastrarPedido = async (req, res) => {
       return res.status(404).json("Existe algum produto_id inválido.");
     }
 
-    //Validar se existe a quantidade em estoque de cada produto existente dentro do array, de acordo com a quantidade informada no corpo (body) da requisição.
-    return res.status(200).json();
+    const existeProdutoComEstoqueInsuficiente = produtosDoPedido.some(
+      (produtoDoPedido, index) => {
+        if (produtoDoPedido.id === pedido_produtos[index].produto_id) {
+          if (
+            produtoDoPedido.quantidade_estoque <
+            pedido_produtos[index].quantidade_produto
+          ) {
+            return true;
+          }
+
+          return false;
+        }
+
+        return false;
+      }
+    );
+
+    if (existeProdutoComEstoqueInsuficiente) {
+      return res
+        .status(404)
+        .json(
+          "Existe algum produto com uma quantidade insufuciente no estoque"
+        );
+    }
+
+    const produtosComSubtotais = produtosDoPedido.map(
+      (produtoDoPedido, index) => {
+        if (produtoDoPedido.id === pedido_produtos[index].produto_id) {
+          return {
+            ...produtoDoPedido,
+            quantidade_produto_neste_pedido:
+              pedido_produtos[index].quantidade_produto,
+            subtotal:
+              pedido_produtos[index].quantidade_produto * produtoDoPedido.valor,
+          };
+        }
+      }
+    );
+
+    const valorTotalPedido = produtosComSubtotais.reduce(
+      (acc, { subtotal }) => (acc += subtotal),
+      0
+    );
+
+    const pedido = await knex("pedidos")
+      .insert({
+        cliente_id,
+        valor_total: valorTotalPedido,
+        observacao,
+      })
+      .returning("id");
+
+    produtosComSubtotais.forEach(
+      async ({ id, quantidade_produto_neste_pedido, valor }) => {
+        return await knex("pedido_produtos").insert({
+          pedido_id: pedido[0].id,
+          produto_id: id,
+          quantidade_produto: quantidade_produto_neste_pedido,
+          valor_produto: valor,
+        });
+      }
+    );
+
+    return res.status(200).json("Pedido cadastrado com sucesso!");
   } catch (error) {
     return res.status(404).json(error.message);
   }
