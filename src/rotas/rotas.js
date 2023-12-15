@@ -20,7 +20,7 @@ const listarClientes = require("../controladores/cliente/clienteControlador.list
 const detalharCliente = require("../controladores/cliente/clienteControlador.detalhar");
 const editarCliente = require("../controladores/cliente/clienteControlador.editar");
 const cadastrarPedido = require("../controladores/pedido/pedidoControlador.cadastrar");
-
+const listarPedido = require("../controladores/pedido/pedidoControlador.listar");
 ///// Impotações de Intermediários ////
 const validarUsuarioCadatrar = require("../intermediarios/usuario/usuarioIntermediario.cadastrar");
 const validarUsuarioLogar = require("../intermediarios/usuario/usuarioIntermediario.logar");
@@ -77,5 +77,7 @@ routes.post(
   validarPedidoCadastrar(esquemaPedido.cadastrar),
   cadastrarPedido
 );
+
+routes.get("/pedido", listarPedido);
 
 module.exports = routes;
