@@ -1,5 +1,9 @@
 const express = require("express");
 const routes = express();
+
+//////////// upload de arquivo /////////////
+const multer = require("../servicos/multer");
+
 /////Impotações de esquemas de validações de entidades////
 const esquemaUsuario = require("../validadores/esquema.usuario");
 const esquemaProduto = require("../validadores/esquema.produto");
@@ -43,8 +47,11 @@ routes.post("/login", validarUsuarioLogar(esquemaUsuario.logar), logarUsuario);
 
 routes.use(validarAutenticacao);
 
+//////////////////////////////////////////////
+
 routes.post(
   "/produto",
+  multer.single("produto_imagem"),
   validarProdutoCadatrar(esquemaProduto.cadastrar),
   cadastrarProduto
 );
