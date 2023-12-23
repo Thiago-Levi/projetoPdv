@@ -1,4 +1,5 @@
 const knex = require("../../bancodedados/conexao");
+const { s3, listarArquivosDeUmBucket } = require("../../servicos/s3");
 
 const deletarProduto = async (req, res) => {
   const { id } = req.params;
@@ -16,17 +17,27 @@ const deletarProduto = async (req, res) => {
         );
     }
 
-    if (id) {
-      produto = await knex("produtos").del().where({ id }).returning();
-    }
+    const produto = await knex("produtos").del().where({ id }).returning();
 
     if (!produto) {
-      return res.status(404).json("Não há produto com esse id");
+      return res.status(404).json("id do produto inválido");
     }
 
-    return res.status(200).json("Produto deletado com sucesso");
+    await s3
+      .deleteObject({
+        Bucket: process.env.BUCKET_NAME,
+        Key: `${id}/`,
+      })
+      .promise();
+
+    const arquivos = await listarArquivosDeUmBucket(
+      s3,
+      process.env.BUCKET_NAME
+    );
+
+    return res.status(200).json("Produto Excluído");
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     return res.status(404).json("id do produto inválido");
   }
 };

@@ -29,9 +29,22 @@ const uploadDeArquivo = async (
 const listarArquivosDeUmBucket = async (s3, nomeDoBucket) => {
   return await s3
     .listObjectsV2({
-      Bucket: process.env.BUCKET_NAME,
+      Bucket: nomeDoBucket,
     })
     .promise();
 };
 
-module.exports = { s3, uploadDeArquivo, listarArquivosDeUmBucket };
+const deletarArquivo = async (bucketName, Key) => {
+  await s3
+    .deleteObject({
+      Bucket: process.env.BUCKET_NAME,
+      Key: `${id}/`,
+    })
+    .promise();
+};
+module.exports = {
+  s3,
+  uploadDeArquivo,
+  listarArquivosDeUmBucket,
+  deletarArquivo,
+};

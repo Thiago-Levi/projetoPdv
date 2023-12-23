@@ -57,6 +57,7 @@ routes.post(
 );
 routes.put(
   "/produto/:id",
+  multer.single("produto_imagem"),
   validarProdutoEditar(esquemaProduto.editar),
   editarProduto
 );

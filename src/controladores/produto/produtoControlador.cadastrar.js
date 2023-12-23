@@ -55,15 +55,10 @@ const cadatrarProduto = async (req, res) => {
         .update({ produto_imagem: arquivoUpado.Location });
     }
 
-    const arquivos = await listarArquivosDeUmBucket(
-      s3,
-      process.env.BUCKET_NAME
-    );
-
     const produto = await knex("produtos")
       .where("id", "=", produtoCadastrado[0].id)
       .first();
-    console.log(arquivos.Contents);
+
     return res.status(200).json(produto);
   } catch (error) {
     console.log(error);
