@@ -1,16 +1,11 @@
 const knex = require("../../bancodedados/conexao");
-const {
-  s3,
-  uploadDeArquivo,
-  listarArquivosDeUmBucket,
-} = require("../../servicos/s3");
+const { s3, uploadDeArquivo } = require("../../servicos/s3");
 
 const editarProduto = async (req, res) => {
   const { descricao, quantidade_estoque, valor, categoria_id } = req.body;
   const { id } = req.params;
   const { file } = req;
 
-  console.log(id);
   try {
     const existe_id = await knex("produtos").where("id", "=", id).first("id");
 
@@ -49,8 +44,6 @@ const editarProduto = async (req, res) => {
         file.mimetype
       );
 
-      console.log(arquivoUpado);
-
       await knex("produtos")
         .where("id", "=", id)
         .update({ produto_imagem: arquivoUpado.Location });
@@ -58,7 +51,6 @@ const editarProduto = async (req, res) => {
 
     return res.status(200).json("Produto atualizado/editado com sucesso");
   } catch (error) {
-    console.log(error.message);
     return res
       .status(401)
       .json("Esse produto não pode ser editado/atualizado.");

@@ -61,7 +61,6 @@ const cadatrarProduto = async (req, res) => {
 
     return res.status(200).json(produto);
   } catch (error) {
-    console.log(error);
     return res.status(401).json("Esse produto não pode ser cadastrado.");
   }
 };
