@@ -13,10 +13,11 @@
   "name": "projetopdv",
   "description": "![](https://i.imgur.com/xG74tOh.png) - # Desafio Módulo 5 - Backend",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node index.js"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Thiago-Levi/projetoPdv.git"
