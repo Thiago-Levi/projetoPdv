@@ -14,6 +14,9 @@ const esquemaPedido = require("../validadores/esquema.pedido");
 const listarCategorias = require("../controladores/categoria/categoriaControlador.listar");
 const cadastrarUsuario = require("../controladores/usuario/usuarioControlador.cadastrar");
 const logarUsuario = require("../controladores/usuario/usuarioControlador.login");
+const detalharPerfilUsuario = require("../controladores/usuario/usuarioControlador.detalharPerfil");
+const editarPerfilUsuario = require("../controladores/usuario/usuarioControlador.editar");
+
 const cadastrarProduto = require("../controladores/produto/produtoControlador.cadastrar");
 const editarProduto = require("../controladores/produto/produtoControlador.editar");
 const listarProdutos = require("../controladores/produto/produtoControlador.listar");
@@ -34,6 +37,7 @@ const validarProdutoEditar = require("../intermediarios/produto/produtoIntermedi
 const validarClienteCadastrar = require("../intermediarios/cliente/clienteIntermediario.cadastrar");
 const validarClienteEditar = require("../intermediarios/cliente/clienteIntermediario.editar");
 const validarPedidoCadastrar = require("../intermediarios/pedido/pedidoIntermediario.cadastrar");
+
 ///// Rotas /////
 routes.get("/categoria", listarCategorias);
 
@@ -48,7 +52,12 @@ routes.post("/login", validarUsuarioLogar(esquemaUsuario.logar), logarUsuario);
 routes.use(validarAutenticacao);
 
 //////////////////////////////////////////////
-
+routes.get("/usuario", detalharPerfilUsuario);
+routes.put(
+  "/usuario",
+  validarUsuarioCadatrar(esquemaUsuario.cadastrar),
+  editarPerfilUsuario
+);
 routes.post(
   "/produto",
   multer.single("produto_imagem"),
