@@ -1,9 +1,17 @@
-# Seja bem vindo(a) ao ProjetoPDV
-## Resumo:
+# Seja bem vindo(a) ao ProjetoPDV 💻 🛒
+
 Criei uma API para um PDV (Frente de Caixa ou Ponto de Vendas).
-A finalidade da API PDV é cadastrar usuários, clientes e produtos. Usuários previamente registrados na plataforma podem acessar a base de dados, incluir produtos em um pedido que será entregue ao cliente.
-O banco de dados e a camada de storage(para salvar as imagens dos produtos) estão "deployados" online.
-O projeto foi desenvolvido com auxílio de um quadro kanban e em 3 sprints nas quais suas atividades estão descritas aqui. 
+
+A finalidade da API PDV é cadastrar usuários, clientes e produtos.
+
+Usuários previamente registrados na plataforma podem acessar a base de dados, incluir produtos em um pedido que será entregue ao cliente.
+
+O banco de dados e a camada de storage(para salvar as imagens dos produtos) estão "deployados" na nuvem.
+
+O projeto foi desenvolvido com auxílio de um quadro kanban e em 3 sprints nas quais suas atividades estão descritas aqui, ao mesmo tempo que explico o projeto.
+
+Esse é um projeto piloto, ou seja, no futuro outras funcionalidades serão implementadas.
+
 
 ## Tecnologias utilizadas: 🛠️
 
@@ -17,7 +25,7 @@ O projeto foi desenvolvido com auxílio de um quadro kanban e em 3 sprints nas q
 - JWT
 - Knexjs
 
-Esse é um projeto piloto, ou seja, no futuro outras funcionalidades serão implementadas.
+
 
 **Importante 1: Sempre que a validação de uma requisição falhar, é exibida uma responda com código de erro e mensagem adequada à situação.**
 
@@ -34,33 +42,36 @@ Esse é um projeto piloto, ou seja, no futuro outras funcionalidades serão impl
 }
 ```
 
-## **Banco de dados**
 
+## **ATENÇÃO:**
+- Qualquer valor monetário deverá ser representado em centavos (Ex.: R$ 10,00 reais = 1000)
+
+<br>
+
+# 1ª Sprint
+
+# Banco de dados:
 Criei um Banco de Dados online PostgreSQL via <https://www.elephantsql.com/>
 
-**No projeto existe um arquivo SQL que é o script que contém os comandos de criação das tabelas respeitando os nomes das tabelas e colunas respectivamente, além de, conter os comandos para a inserção das categorias.**
+**No projeto existe um arquivo SQL que é o script que contém os comandos de criação das tabelas respeitando os nomes das tabelas e colunas respectivamente, além de conter os comandos para a inserção das categorias.**
 
-## **ATENÇÃO**
--   Qualquer valor monetário deverá ser representado em centavos (Ex.: R$ 10,00 reais = 1000)
-
-## 1ª Sprint
-<br>
-<b>Banco de Dados</b>
-<br>
-
-# Modelo Entidade-Relacionamento do banco de dados:
+Aqui abaixo está uma representação do Modelo Entidade-Relacionamento do banco de dados da aplicação.
 
 <img src="pdv.jpeg" alt="Modelo Entidade-Relacionamento do banco de dados"> 
 
-<b>Listar categorias</b>
+<br>
+
+# Endpoint/Recursos
+
+## Listar categorias
 
 #### `GET` `/categoria`
 
-## <https://graceful-bass-earmuffs.cyclic.app/categoria>
+<https://graceful-bass-earmuffs.cyclic.app/categoria>
 
 Essa é a rota que é chamada quando o usuário quiser listar todas as categorias cadastradas.
 
-As categorias abaixo foram previamente cadastradas para que sejam listadas no endpoint de listagem das categorias.
+As categorias abaixo foram previamente cadastradas para que sejam listadas neste endpoint.
 
 ## **Categorias**
 
@@ -75,10 +86,11 @@ As categorias abaixo foram previamente cadastradas para que sejam listadas no en
 -   Games
 
 
-<b>Cadastrar usuário</b>
+
+## Cadastrar usuário
 
 #### `POST` `/usuario`
-## <https://graceful-bass-earmuffs.cyclic.app/usuario>
+<https://graceful-bass-earmuffs.cyclic.app/usuario>
 
 Essa é a rota que é utilizada para cadastrar um novo usuário no sistema.
 
@@ -88,15 +100,16 @@ Critérios de aceite:
         - nome
         - email
         - senha
-    - A senha deve é criptografada utilizando algum algoritmo de criptografia confiável.
-    - O campo e-mail no banco de dados é único para cada registro, não permitindo dois usuários possuírem o mesmo e-mail.
+    - A senha é criptografada.
+    - O campo e-mail é único.
 
 
-<b>Efetuar login do usuário</b>
+## Efetuar login do usuário
 
 #### `POST` `/login`
-## <https://graceful-bass-earmuffs.cyclic.app/login>
-Essa é a rota que permite o usuário cadastrado realizar o login no sistema.
+<https://graceful-bass-earmuffs.cyclic.app/login>
+
+Essa é a rota que permite ao usuário cadastrado realizar o login no sistema.
 
 Critérios de aceite:
 
@@ -109,21 +122,21 @@ Critérios de aceite:
 
 ## **ATENÇÃO**: Todas as funcionalidades (endpoints) abaixo, exigem o token de autenticação do usuário logado, recebendo no header com o formato Bearer Token. Portanto, em cada funcionalidade há validação de token.
 
----
 
 
-<b>Detalhar perfil do usuário logado</b>
+## Detalhar perfil do usuário logado
 
 #### `GET` `/usuario`
-## <https://graceful-bass-earmuffs.cyclic.app/usuario>
+<https://graceful-bass-earmuffs.cyclic.app/usuario>
 
-Essa é a rota que permite o usuário logado a visualizar os dados do seu próprio perfil, de acordo com a validação do token de autenticação.
+Essa é a rota que permite ao usuário logado visualizar os dados do seu próprio perfil, de acordo com a validação do token de autenticação.
 
-<b>Editar perfil do usuário logado</b>
+## Editar perfil do usuário logado
 
 #### `PUT` `/usuario`
-## <https://graceful-bass-earmuffs.cyclic.app/usuario>
-Essa é a rota que permite o usuário logado atualizar informações de seu próprio cadastro, de acordo com a validação do token de autenticação.
+<https://graceful-bass-earmuffs.cyclic.app/usuario>
+
+Essa é a rota que permite ao usuário logado atualizar informações de seu próprio cadastro, de acordo com a validação do token de autenticação.
 
 Critérios de aceite:
 
@@ -131,21 +144,20 @@ Critérios de aceite:
         - nome
         - email
         - senha
-    - A senha é criptografada utilizando a bilbioteca <https://www.npmjs.com/package/bcrypt>.
-    - O campo e-mail no banco de dados deve ser único para cada registro, não permitindo dois usuários possuírem o mesmo e-mail.
+    - A senha é criptografada.
+    - O campo e-mail deve ser único.
 
 
 
 ---
 
-
-## 2ª Sprint
-<br>
-<b>Cadastrar Produto</b>
+# 2ª Sprint
+## Cadastrar Produto
 
 #### `POST` `/produto`
-## <https://graceful-bass-earmuffs.cyclic.app/produto>
-Essa é a rota que permite o usuário logado cadastrar um novo produto no sistema.
+<https://graceful-bass-earmuffs.cyclic.app/produto>
+
+Essa é a rota que permite ao usuário logado cadastrar um novo produto no sistema.
 
 Critérios de aceite:
 
@@ -159,11 +171,12 @@ Critérios de aceite:
 
 
 
-<b>Editar dados do produto</b>
+## Editar dados do produto
 
 #### `PUT` `/produto/:id`
-## <https://graceful-bass-earmuffs.cyclic.app/produto/2>
-Essa é a rota que permite o usuário logado a atualizar as informações de um produto cadastrado.
+<https://graceful-bass-earmuffs.cyclic.app/produto/2>
+
+Essa é a rota que permite ao usuário logado atualizar as informações de um produto cadastrado.
 
 Critérios de aceite:
 
@@ -178,27 +191,29 @@ Critérios de aceite:
 
 
 
-<b>Listar Produtos</b>
+## Listar Produtos
 
 #### `GET` `/produto`
-## <https://graceful-bass-earmuffs.cyclic.app/produto>
+<https://graceful-bass-earmuffs.cyclic.app/produto>
+
 Essa é a rota que será chamada quando o usuário logado quiser listar todos os produtos cadastrados.
 
 O usuário poderá incluir um parâmetro do tipo query **categoria_id** para que seja possível consultar produtos por categorias, de modo, que serão filtrados de acordo com o id de uma categoria.
 
 Critérios de aceite:
 
-    - Caso seja enviado o parâmetro do tipo query **categoria_id**, filtrar os produtos de acordo com a categoria, caso o id de categoria informada exista.
+    - Caso seja enviado o parâmetro do tipo query **categoria_id**, o sistema filtrará os produtos de acordo com a categoria, caso o id de categoria informada exista.
     - Caso não seja informado o parâmetro do tipo query **categoria_id** todos os produtos cadastrados serão retornados.
 
 
 
 
-<b>Detalhar Produto</b>
+## Detalhar Produto
 
 #### `GET` `/produto/:id`
-## <https://graceful-bass-earmuffs.cyclic.app/produto/2>
-Essa é a rota que permite o usuário logado obter um de seus produtos cadastrados.  
+<https://graceful-bass-earmuffs.cyclic.app/produto/2>
+
+Essa é a rota que permite ao usuário logado obter um de seus produtos cadastrados.  
 
 Critérios de aceite:
 
@@ -207,10 +222,11 @@ Critérios de aceite:
 
 
 
-<b>Excluir Produto por ID</b>
+## Excluir Produto por ID
 
 #### `DELETE` `/produto/:id`
-## <https://graceful-bass-earmuffs.cyclic.app/produto/1>
+<https://graceful-bass-earmuffs.cyclic.app/produto/1>
+
 Essa é a rota que será chamada quando o usuário logado quiser excluir um de seus produtos cadastrados.  
 
 Critérios de aceite:
@@ -220,11 +236,12 @@ Critérios de aceite:
 
 
 
-<b>Cadastrar Cliente</b>
+Cadastrar Cliente
 
 #### `POST` `/cliente`
-## <https://graceful-bass-earmuffs.cyclic.app/cliente>
-Essa é a rota que permite usuário logado cadastrar um novo cliente no sistema.
+<https://graceful-bass-earmuffs.cyclic.app/cliente>
+
+Essa é a rota que permite ao usuário logado cadastrar um novo cliente no sistema.
 
 Critérios de aceite:
 
@@ -232,17 +249,18 @@ Critérios de aceite:
         -   nome
         -   email
         -   cpf
-    -   O campo e-mail no banco de dados é único para cada registro, não permitindo dois clientes possuírem o mesmo e-mail.
-    -   O campo cpf no banco de dados é único para cada registro, não permitindo dois clientes possuírem o mesmo cpf.
+    -   O campo e-mail deverá ser único.
+    -   O campo cpf deverá ser único.
 
 
 
 
-<b>Editar dados do cliente</b>
+## Editar dados do cliente
 
 #### `PUT` `/cliente/:id`
-## <https://graceful-bass-earmuffs.cyclic.app/cliente/1>
-Essa é a rota que permite o usuário realizar atualização de um cliente cadastrado.
+<https://graceful-bass-earmuffs.cyclic.app/cliente/1>
+
+Essa é a rota que permite ao usuário realizar a atualização de um cliente cadastrado.
 
 Critérios de aceite:
 
@@ -251,25 +269,27 @@ Critérios de aceite:
         -   nome
         -   email
         -   cpf
-    -   O campo e-mail no banco de dados é único para cada registro, não permitindo dois clientes possuírem o mesmo e-mail.
-    -   O campo cpf no banco de dados é único para cada registro, não permitindo dois clientes possuírem o mesmo cpf.
+    -   O campo e-mail deverá ser único.
+    -   O campo cpf deverá ser único.
 
 
 
 
-<b>Listar Clientes</b>
+## Listar Clientes
 
 #### `GET` `/cliente`
-## <https://graceful-bass-earmuffs.cyclic.app/cliente>
+<https://graceful-bass-earmuffs.cyclic.app/cliente>
+
 Essa é a rota que será chamada quando o usuário logado quiser listar todos os clientes cadastrados.
 
 
 
 
-<b>Detalhar Cliente</b>
+## Detalhar Cliente
 
 #### `GET` `/cliente/:id`
-## <https://graceful-bass-earmuffs.cyclic.app/cliente/1>
+<https://graceful-bass-earmuffs.cyclic.app/cliente/1>
+
 Essa é a rota que será chamada quando o usuário logado quiser obter um de seus clientes cadastrados.  
 
 Critérios de aceite:
@@ -282,13 +302,15 @@ Critérios de aceite:
 
 ---
 
-
-## 3ª Sprint
 <br>
-<b>Cadastrar Pedido</b>
+
+# 3ª Sprint
+
+## Cadastrar Pedido
 
 #### `POST` `/pedido`
-## <https://graceful-bass-earmuffs.cyclic.app/pedido>
+<https://graceful-bass-earmuffs.cyclic.app/pedido>
+
 Essa é a rota que será utilizada para cadastrar um novo pedido no sistema.
 
 **Lembre-se:** Cada pedido deverá conter ao menos um produto vinculado.
@@ -329,10 +351,11 @@ Critérios de aceite:
 
 
 
-<b>Listar Pedidos</b>
+## Listar Pedidos
 
 #### `GET` `/pedido`
-## <https://graceful-bass-earmuffs.cyclic.app/pedido>
+<https://graceful-bass-earmuffs.cyclic.app/pedido>
+
 Essa é a rota que será chamada quando o usuário logado quiser listar todos os pedidos cadastrados.
 
 O usuário poderá incluir um parâmetro do tipo query **cliente_id** para que seja possível consultar pedidos por clientes, de modo, que serão filtrados de acordo com o id de um cliente.
@@ -369,13 +392,13 @@ O usuário poderá incluir um parâmetro do tipo query **cliente_id** para que s
 
 Critérios de aceite:
 
-    - Caso seja enviado o parâmetro do tipo query **cliente_id**, filtrar os pedidos de acordo com o cliente, caso o id do cliente informado exista.
+    - Caso seja enviado o parâmetro do tipo query **cliente_id**, o sustema filtrará os pedidos de acordo com o cliente, caso o id do cliente informado exista.
     - Caso não seja informado o parâmetro do tipo query **cliente_id** todos os pedidos cadastrados serão retornados.
 
 
 
 
-<b>Apliquei validação na exclusão de produto</b>
+<b>Aprimoramento da validação na exclusão de produto</b>
 <br>
 
 Está sendo aplicada uma regra de negócio que não permite exclusão de produto que tenha sido registrado em algum pedido.
@@ -387,16 +410,16 @@ Critérios de aceite:
 
 
 
-<b>Aprimorei cadastro/atualização de produto</b>
+<b>Aprimoramento de cadastro/atualização de produto</b>
 <br>
 
 O cadastro e a atualização de produto permite vincular uma imagem a um produto. 
-Foi criada uma coluna `produto_imagem` para que seja possível efetuar o vínculo entre a imagem e o produto.
+Foi criada, no banco de dados, na tabela `produtos` uma coluna `produto_imagem` para que seja possível efetuar o vínculo entre a imagem e o produto.
 
 Critérios de aceite:
     
-    - O campo `produto_imagem` é opcional, mas, caso enviado no corpo da requisição o sistema irá processar a imagem vinculada a essa propriedade e armazenar a imagem em um servidor de armazenamento da Blackblaze. (S3 API)
-    - O sistema irá armazenar na coluna `produto_imagem` a URL que possibilita visualizar a imagem que foi efetuada upload para o servidor de armazenamento.
+    - O campo produto_imagem é opcional, mas caso enviado no corpo da requisição, o sistema irá processar a imagem vinculada a essa propriedade e armazenar a imagem em um servidor de armazenamento da Blackblaze. (S3 API)
+    - O sistema irá armazenar na coluna produto_imagem apenas a URL que possibilita visualizar a imagem que foi efetuada upload para o servidor de armazenamento.
 
 
 **ATENÇÃO:** Abaixo segue o exemplo de uma URL fictícia, mas que no caso, ilustra o que o serviço de armazenamento do Blackblaze retornaria após upload efetuado com sucesso, portanto essa seria no caso a URL que armazaremos na coluna `produto_imagem` no banco de dados.
@@ -415,7 +438,7 @@ Critérios de aceite:
 
 
 
-<b>Exclusão de produto</b>
+<b> Aprimoramento da exclusão de produto</b>
 <br>
 Foi aprimorada a exclusão de produto para que quando o produto for excluído também seja removida a imagem vinculada a ele na servidor de armazenamento online.
 
