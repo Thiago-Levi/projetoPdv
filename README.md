@@ -20,7 +20,7 @@ Esse é um projeto piloto, ou seja, no futuro outras funcionalidades serão impl
 - Node.js
 - AWS-SDK (S3)
 - PostgreSQL
-- Backblaze
+- Backblaze(Amazon S3 API)
 - Bcrypt
 - JWT
 - Knexjs
